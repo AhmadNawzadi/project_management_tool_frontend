@@ -1,0 +1,58 @@
+
+
+<div class="container mt-2 task-form" >
+    <div>
+        <i class="fa-regular fa-rectangle-xmark" (click)="exitNewTask()"></i>
+    </div>
+    <h3 class="text-center">Ajouter Nouvelle Tache</h3>
+    <br>
+    <form>
+        <div class="row">
+            <!-- First Column -->
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label" >Nom</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="task.name">
+                </div>
+        
+                <div class="mb-3">
+                    <label class="form-label">Priorité</label>
+                    <select class="form-control" name="priority" [(ngModel)]="task.priority">
+                        <option value="" disabled selected>Selectionez</option>
+                        <option value="0">Faible</option>
+                        <option value="1">Moyen</option>
+                        <option value="2">Elevé</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Date d'échéance</label>
+                    <input type="date" class="form-control" name="dueDate" [(ngModel)]="task.dueDate">
+                </div>
+        
+                <div class="mb-3">
+                    <label class="form-label">Statut</label>
+                    <select class="form-control" name="status" [(ngModel)]="task.status">
+                        <option value="" disabled selected>Selectionez</option>
+                        <option value="0">A faire</option>
+                        <option value="1">En cours</option>
+                        <option value="2">fait</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" id="" cols="30" rows="5" class="form-control" [(ngModel)]="task.description"></textarea>
+                </div>
+            </div>
+        </div>
+        <br>
+       <button type="submit" class="btn btn-primary" (click)="createTask()">Submit</button>
+    </form>
+  </div>
+  
+

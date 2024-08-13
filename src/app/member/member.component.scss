@@ -1,0 +1,35 @@
+
+.members{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 850px;
+	height: 420px;
+	padding: 20px 30px;
+	box-sizing: border-box;
+	background: rgba(241, 196, 15, 1);
+	border-radius: 3%;
+    color: black;
+}
+
+.fa-regular {
+    font-size: 30px;
+    margin-bottom: 40px;
+    position: absolute;
+    top: 10px; 
+    right: 10px;
+    font-size: 24px; 
+}
+
+.heading-bar {
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.invite {
+    padding: 20px;
+    width: 300px;
+}
+

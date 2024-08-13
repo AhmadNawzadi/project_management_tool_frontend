@@ -1,0 +1,39 @@
+
+
+<div class="loginBox">
+	<div>
+        <i class="fa-regular fa-rectangle-xmark" (click)="exitNewProject()"></i>
+    </div>
+
+    <div> 
+        <h4 class="text-center">Ajouter un Nouveau Projet</h4>
+        <br>
+		<form>
+			<p>Nom</p>
+			<input type="text" name="name" [(ngModel)]="name" class="form-control">
+			<p>Description</p>
+            <textarea 
+                cols="30" 
+                rows="5" 
+                type="text" 
+                name="description" 
+                [(ngModel)]="description"
+                class="form-control">
+            </textarea>
+            <br>
+			<!-- <input type="text" name="description" [(ngModel)]="description"> -->
+            <p>Date de lancement</p>
+			<input 
+                type="date" 
+                name="startDate" 
+                [(ngModel)]="startDate"
+                class="form-control">
+			<button 
+				class="btn btn-dark signin" 
+				type="submit" 
+				(click)="createProject({name, description, startDate})"
+				[disabled]="name.length==0 || description.length==0">Soumettre</button>
+			<br>
+		</form>
+	</div>
+</div>

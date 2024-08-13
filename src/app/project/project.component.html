@@ -1,0 +1,145 @@
+
+
+<div class="content">
+
+  <!-- le formulaire pour representer les projets -->  
+  <div *ngIf="showProjects">
+
+    <div class="heading-bar">
+      <div>
+        <h2>Projets</h2>
+      </div>
+      <button class="btn btn-primary" (click)="newProjectClicked()">Nouveau Projet</button>
+    </div>
+    
+    <table class="table table-striped table-bordered" >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date de lancement</th>
+          <th scope="col">Date cree</th>
+          <th scope="col">Date de mise a jour</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let project of projects, let i = index">
+              <td>{{project.id}}</td>
+              <td>{{project.name }}</td>
+              <td>{{project.description }}</td>
+              <td>{{project.startDate }}</td>
+              <td>{{project.createdAt }}</td>
+              <td>{{project.updatedAt }}</td>
+              <td><button class="btn btn-success" (click)="getTasks(project.id)">Tâches</button></td>
+              <td><button class="btn btn-success" (click)="getMembers(project.id)">Membrs</button></td>  
+          </tr>
+      </tbody>
+      <div *ngIf="showNewProjectForm" >
+        <app-new-project (exit)="exitForm()" [userId]="uId" ></app-new-project>
+      </div>
+      <div *ngIf="showMembers" >
+        <app-member [members]="members" [projectId]="pId" (exit)="exitMembers()"></app-member>
+      </div>
+    </table>
+  </div>
+
+  <!-- le formulaire pour representer les taches d'un projet -->
+  <div *ngIf="showTasks">
+    <div>
+      <i class="fa-solid fa-backward" (click)="backToProjects()"></i>
+    </div>
+
+    <div class="heading-bar">
+      <div>
+        <h2>Tâches</h2>
+      </div>
+      <button class="btn btn-primary" (click)="newTaskClicked()">Nouvelle tâche</button>
+    </div>
+
+    <table class="table table-striped table-bordered" >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Due date</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let task of tasks; let i = index">
+              <td>{{task.id }}</td>
+              <td>{{task.name }}</td>
+              <td>{{task.description }}</td>
+              <td>{{task.dueDate }}</td>
+              <td>{{task.priority }}</td>
+              <td>{{task.status }}</td>
+              <td><button class="btn btn-success" (click)="updateTaskClicked(task.id)">Mettre à jour</button></td>
+              <td><button class="btn btn-success" (click)="assigTaskClicked(task.id)">Assigner</button></td>
+              <td><button class="btn btn-success">History</button></td>              
+          </tr>
+      </tbody>
+    </table>
+
+    <!-- le formulaire pour representer des statut des taches -->
+    <div class="container mt-5">
+      <h2 class="mb-4">Statut des Taches</h2>
+      <table class="table table-striped table-bordered">
+          <thead class="thead-dark taskStatus">
+              <tr>
+                  <th>En cours</th>
+                  <th>A faire</th>
+                  <th>Fait</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>{{taskInProgress}}</td>
+                  <td>{{taskTodo}}</td>
+                  <td>{{taskDone}}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <!-- le formulaire pour attribuer une tache a une membre -->
+  <div class="assignTask" *ngIf="showAssignTask">
+      <div>
+        <i class="fa-regular fa-rectangle-xmark" (click)="exitAssignTask()"></i>
+      </div>
+  
+      <div> 
+        <h3>Assigner une Tâche</h3>
+        <br>
+        <form>
+          <select class="form-control" name="selectedMember" [(ngModel)]="selectedMemberId">
+            <option value="" disabled selected>Selectionez</option>
+            <option [value]="member.memberId" *ngFor="let member of members">{{member.username}}</option>
+          </select>
+          <br>
+          <button 
+            class="btn btn-danger signin" 
+            type="submit" 
+            (click)="assignTask(selectedMemberId)"
+            >Assigner</button>
+          <br>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- formulaire pour ajoute une nouvelle tache -->
+    <div *ngIf="showNewTaskForm" >
+      <app-new-task (exit)="exitTaskForm()" [projectId]="pId"></app-new-task>
+    </div>
+
+    <!-- formulaire pour mettre a jour une tache -->
+    <div *ngIf="showUpdateTask">
+      <app-update-task (exit)="exitUpateTask()" [existingTask]="task" [taskId]="taskId"></app-update-task>
+    </div>
+  </div>
+
+
+</div>

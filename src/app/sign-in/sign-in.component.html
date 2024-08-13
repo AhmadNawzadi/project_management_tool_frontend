@@ -1,0 +1,60 @@
+
+<div class="loginBox">
+	<div>
+        <i class="fa-regular fa-rectangle-xmark" (click)="exitSignIn()"></i>
+    </div>
+
+    <div *ngIf="hideSignIn"> 
+        <h2>Se connecter</h2>
+		<form>
+			<p>Email</p>
+			<input type="text" name="name" [(ngModel)]="email" required>
+			<p>Mot de passe</p>
+			<input type="password" name="password" [(ngModel)]="password" required>
+			<button 
+				class="btn btn-dark signin" 
+				type="submit" 
+				(click)="onSubmit()"
+				[disabled]="email.length==0 || password.length==0">Se connecter</button>
+
+			<!-- <input type="submit" name="" value="{{ formTitle }}"> -->
+			<div class="links" *ngIf="!isSignUpTextHidden">
+				<a href="#" (click)="openSignUp()">S'inscrire</a>
+			</div>
+			<br>
+		</form>
+	</div>
+</div>
+
+<div *ngIf="hideSignUp" [ngClass]="{'sign-up-form' : hideSignUp}"> 
+	<div>
+        <i class="fa-regular fa-rectangle-xmark" (click)="exitSignIn()"></i>
+    </div>
+	<h2>S'inscrire</h2>
+	<form>
+		<p>Nom d'utilisateur</p>
+		<input type="text" name="Nom" class="form-control" [(ngModel)]="username" required>
+		<p>email</p>
+		<input type="text" name="email" class="form-control" [(ngModel)]="email" required>
+		<p>Mot de passe</p>
+		<input type="password" name="password" class="form-control" [(ngModel)]="password" required>
+		<br>
+		<button 
+			class="btn btn-primary" 
+			value="submit" 
+			(click)="createUser({username, email, password})"
+			[disabled]="email.length==0 || password.length==0 || username.length==0"
+			>Soumettre</button>
+		<!-- <input type="submit" name="" (click)="createUser({username, email, password})"> -->
+		<!-- <div class="links" *ngIf="!isSignUpTextHidden">
+			<a href="#" (click)="openSignUp()">S'inscrire</a>
+		</div> -->
+		<br>
+	</form>
+</div>
+
+<!-- <div *ngIf="hideSignUpForm">
+    <app-sign-up></app-sign-up>
+     <app-sign-in (exit)="exitForm()"></app-sign-in> 
+</div>  -->
+

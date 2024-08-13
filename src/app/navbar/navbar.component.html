@@ -1,0 +1,18 @@
+<div class="container-fluid my-navbar">
+    <nav class="navbar navbar-light bg-light navbar-css">
+        <a class="navbar-brand">Project Management Tool</a>
+        <div>
+            <button class="btn btn-success" (click)="signInClicked()">Connexion</button>
+        </div>
+        <!-- <div>
+            <button class="btn btn-success" (click)="logout()">Deconnexion</button>
+        </div> -->
+        
+    </nav>
+    <div *ngIf="hideSignInForm">
+        <app-sign-in (exit)="exitForm()"></app-sign-in>
+    </div> 
+
+
+</div>
+
