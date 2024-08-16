@@ -14,8 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskComponent {
 
-  constructor(private taskService : TaskService) {
-  }
+  constructor(private taskService : TaskService) {}
   
 
 

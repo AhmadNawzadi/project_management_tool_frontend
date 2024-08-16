@@ -78,9 +78,64 @@ export class ProjectComponent implements OnInit {
 
   selectedMemberId : any
   taskId : any
+  assignedTo :any
 
   ngOnInit(): void {
     this.getUserId();
+  }
+
+  getUserId() {
+    this.sharedDataService.userId$.subscribe(userId => {
+      if (userId) {
+        this.uId = userId
+        this.getProjects(this.uId);
+      } else {
+      }
+    });
+  }
+
+  getProjects(userId : number){
+    this.projectService.getData(userId).subscribe({
+      next: (data: any[]) => {
+        this.projects = data;
+      },
+      error: (error) => {
+        console.error('Error fetching data', error);
+      }
+    });
+  }
+
+  getTasks(projectId : number) {
+    console.log("get tasks")
+    this.taskService.getData(projectId).subscribe({
+      next: (data: any[]) => {
+        this.tasks = data;
+        this.pId = projectId
+        this.countTasksByStatus();
+        this.tasks.forEach(task => this.getAssignment(task.id));
+      },
+      error: (error) => {
+        console.error('Error fetching data', error);
+      }
+    });
+    this.showProjects = false
+    this.showTasks = true
+  }
+
+  getMembers(projectId : number){
+    this.memberService.getMembersByProjectId(projectId).subscribe({
+      next: (data: any[]) => {
+        this.members = data;
+        this.pId = projectId
+        this.sharedDataService.setProjectId(projectId);
+        console.log(data)
+ 
+      },
+      error: (error) => {
+        console.error('Error fetching data', error);
+      }
+    });
+    this.showMembers = true 
   }
 
   getTaskById(taskId : number){
@@ -115,19 +170,29 @@ export class ProjectComponent implements OnInit {
     this.showAssignTask = false
   }
   assignTask(memberId : number){
-    console.log('Selected Member ID:', memberId);
-    console.log(' Member size:', this.members.length);
-    
     this.taskService.assignTask(this.taskId, memberId)
     .subscribe({
       next: (response) => {
         console.log('Task assigned successfully', response);
         alert("Tâche attribuée avec succès")
+        //this.getAssignment();
       },
       error: (err) => {
         console.error('Error updating assignment', err);
       }
     });
+  }
+
+  getAssignment(taskId : number){
+    this.taskService.getAssignmentByTaskId(taskId).subscribe({
+      next: (data:any) => {
+        this.assignedTo = data;
+        console.log("ASSIGNMENT ", this.assignedTo)
+      },
+      error: (err) => {
+        console.error('Error getting assignment', err);
+      }
+    })
   }
 
   countTasksByStatus(){
@@ -165,69 +230,16 @@ export class ProjectComponent implements OnInit {
     this.showNewTaskForm = true
   }
 
-  getUserId() {
-    this.sharedDataService.userId$.subscribe(userId => {
-      if (userId) {
-        this.uId = userId
-        this.getProjects(this.uId);
-      } else {
-      }
-    });
-  }
-
   newProjectClicked(){
     this.showNewProjectForm = true
   }
 
-  exitForm(){
+  exitNewProjectForm(){
     this.showNewProjectForm = false;
   }
 
   exitTaskForm(){
     this.showNewTaskForm = false;
-  }
-
-  getProjects(userId : number){
-    this.projectService.getData(userId).subscribe({
-      next: (data: any[]) => {
-        this.projects = data;
-      },
-      error: (error) => {
-        console.error('Error fetching data', error);
-      }
-    });
-  }
-
-  getTasks(projectId : number) {
-    console.log("get tasks")
-    this.taskService.getData(projectId).subscribe({
-      next: (data: any[]) => {
-        this.tasks = data;
-        this.pId = projectId
-        this.countTasksByStatus();
-      },
-      error: (error) => {
-        console.error('Error fetching data', error);
-      }
-    });
-    this.showProjects = false
-    this.showTasks = true
-  }
-
-  getMembers(projectId : number){
-    this.memberService.getMembersByProjectId(projectId).subscribe({
-      next: (data: any[]) => {
-        this.members = data;
-        this.pId = projectId
-        this.sharedDataService.setProjectId(projectId);
-        console.log(data)
- 
-      },
-      error: (error) => {
-        console.error('Error fetching data', error);
-      }
-    });
-    this.showMembers = true 
   }
 
   

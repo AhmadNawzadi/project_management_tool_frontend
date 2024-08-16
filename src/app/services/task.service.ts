@@ -38,4 +38,9 @@ export class TaskService {
     return this.httpClient.get<any>(url);
 
   }
+
+  getAssignmentByTaskId(taskId : number) :  Observable<any> {
+    const url = `http://localhost:8080/assignment/${taskId}`;
+    return this.httpClient.get<any>(url);
+  }
 }

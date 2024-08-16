@@ -1,29 +1,35 @@
 
 <div class="content members">
     <div>
-        <div>
-            <i class="fa-regular fa-rectangle-xmark" (click)="exitMemebers()"></i>
-        </div>
-      <div class="heading-bar">
-        <div>
+      <div>
+          <i class="fa-regular fa-rectangle-xmark" (click)="exitMemebers()"></i>
+      </div>
+
+      <!-- Invite new member -->
+      <div class="heading-bar row">
+        <div class="col-4">
           <h2>Members</h2>
         </div>
-        <div>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control invite" type="text" placeholder="Inviter nouveau membre par mail" name="email" [(ngModel)]="email">
-                <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="inviteMember()">Inviter</button>
-              </form>
-        </div>
+
+        <input 
+          class="col-6" 
+          type="text" 
+          placeholder="Inviter un nouveau membre par mail" 
+          name="email" 
+          [(ngModel)]="email" >
+        <button class="btn btn-danger col-2"  (click)="inviteMember()">Inviter</button>
       </div>
       <br>
       
+      <!-- Members -->
       <table class="table table-striped" >
         <thead>
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Nom</th>
             <th scope="col">Date cree</th>
-            <th scope="col">Role</th>
+            <th scope="col">Role(opter)</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -32,8 +38,8 @@
                 <td>{{member.username}}</td>
                 <td>{{member.createdAt }}</td>
                 <td>
-                    <select class="form-control" [(ngModel)]="member.role">
-                        <option value="" disabled selected>Selectionez</option>
+                    <select class="" [(ngModel)]="member.role">
+                        <option value="" disabled selected>Selectionnez</option>
                         <option value="ADMINISTRATOR">Administrator</option>
                         <option value="MEMBER">Membre</option>
                         <option value="OBSERVER">Observateur</option>

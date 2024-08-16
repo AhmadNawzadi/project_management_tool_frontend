@@ -17,7 +17,6 @@
 				(click)="onSubmit()"
 				[disabled]="email.length==0 || password.length==0">Se connecter</button>
 
-			<!-- <input type="submit" name="" value="{{ formTitle }}"> -->
 			<div class="links" *ngIf="!isSignUpTextHidden">
 				<a href="#" (click)="openSignUp()">S'inscrire</a>
 			</div>
@@ -45,16 +44,7 @@
 			(click)="createUser({username, email, password})"
 			[disabled]="email.length==0 || password.length==0 || username.length==0"
 			>Soumettre</button>
-		<!-- <input type="submit" name="" (click)="createUser({username, email, password})"> -->
-		<!-- <div class="links" *ngIf="!isSignUpTextHidden">
-			<a href="#" (click)="openSignUp()">S'inscrire</a>
-		</div> -->
 		<br>
 	</form>
 </div>
-
-<!-- <div *ngIf="hideSignUpForm">
-    <app-sign-up></app-sign-up>
-     <app-sign-in (exit)="exitForm()"></app-sign-in> 
-</div>  -->
 

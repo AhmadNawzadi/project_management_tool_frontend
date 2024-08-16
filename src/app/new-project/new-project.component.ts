@@ -16,7 +16,7 @@ import { SharedDataService } from '../services/shared-data.service';
   templateUrl: './new-project.component.html',
   styleUrl: './new-project.component.scss'
 })
-export class NewProjectComponent implements OnInit{
+export class NewProjectComponent {
 
   @Output() exit = new EventEmitter();
   @Input()  userId? : number 
@@ -30,11 +30,7 @@ export class NewProjectComponent implements OnInit{
       });
   }
 
-  ngOnInit(): void {
-   // this.getUserId()
-    console.log("USER ID FROM NEW PROJECT", this.userId)
-  }
-
+ 
   name : string = ""
   description : string = ""
   startDate : Date = new Date()
@@ -44,37 +40,33 @@ export class NewProjectComponent implements OnInit{
   }
 
   getUser() {
-    console.log('User ID FINAL 11:');
     this.sharedDataService.user$.subscribe(user => {
       if (user) {
         this.user = user
-        console.log('User ID FINAL 22:', user);
       } else {
-        // Handle case where userId is not available
       }
     });
   }
 
   createProject(project : Project){
-      console.log("THIS IS USER ", this.user)
-      if (this.user) {
-        const newProject = {
-          name : project.name,
-          description : project.description,
-          startDate : project.startDate,
-          user: this.user // Attach the entire user object
-        };
+    if (this.user) {
+      const newProject = {
+        name : project.name,
+        description : project.description,
+        startDate : project.startDate,
+        user: this.user 
+      };
   
-    project.user = this.user
-    this.projectService.createProject(newProject).subscribe((response) => {
-      alert("Projet créé avec succès.")
-      this.exitNewProject()
-    },
-    (error) => {
-      console.error('Error creating project:', error);
-    })}
-    else {
-      console.error('Error');
+      project.user = this.user
+      this.projectService.createProject(newProject).subscribe((response) => {
+        alert("Projet créé avec succès.")
+        this.exitNewProject()
+      },
+      (error) => {
+        console.error('Error creating project:', error);
+      })}
+      else {
+        console.error('Error: User is not defined');
     }
   }
 

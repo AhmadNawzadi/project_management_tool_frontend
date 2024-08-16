@@ -47,9 +47,9 @@ export class NavbarComponent {
     });
   }
 
-logout() {
-    this.router.navigateByUrl('/login');
-    console.log("IS AUTHENTICATED", this.isAuthenticated);
-  }
+// logout() {
+//     this.router.navigateByUrl('/login');
+//     console.log("IS AUTHENTICATED", this.isAuthenticated);
+//   }
 
 }

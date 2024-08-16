@@ -39,10 +39,12 @@ export class NewTaskComponent {
   }
 
   createTask(){
+    console.log("Inside createTask method");
     console.log("Project id from new task", this.projectId)
     this.taskService.createTask(this.task, this.projectId).subscribe(data => {
       this.tasks = data
       console.log("TASKS : ", this.tasks)
+      console.log("TASK DUE DATE IS : ", this.task.dueDate)
     })
   }
 

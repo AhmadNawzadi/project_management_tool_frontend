@@ -36,7 +36,7 @@
           </tr>
       </tbody>
       <div *ngIf="showNewProjectForm" >
-        <app-new-project (exit)="exitForm()" [userId]="uId" ></app-new-project>
+        <app-new-project (exit)="exitNewProjectForm()" [userId]="uId" ></app-new-project>
       </div>
       <div *ngIf="showMembers" >
         <app-member [members]="members" [projectId]="pId" (exit)="exitMembers()"></app-member>
@@ -66,6 +66,7 @@
           <th scope="col">Due date</th>
           <th scope="col">Priority</th>
           <th scope="col">Status</th>
+          <th scope="col">Attribué au</th>
         </tr>
       </thead>
       <tbody>
@@ -76,18 +77,23 @@
               <td>{{task.dueDate }}</td>
               <td>{{task.priority }}</td>
               <td>{{task.status }}</td>
+              <td *ngIf="(assignedTo != null && assignedTo.task.id===task.id); else NotAssignedYet ">{{assignedTo.member.user.username}}</td>
               <td><button class="btn btn-success" (click)="updateTaskClicked(task.id)">Mettre à jour</button></td>
               <td><button class="btn btn-success" (click)="assigTaskClicked(task.id)">Assigner</button></td>
-              <td><button class="btn btn-success">History</button></td>              
+              <td><button class="btn btn-success" >History</button></td>              
           </tr>
       </tbody>
     </table>
+
+    <ng-template #NotAssignedYet>
+      <td></td>
+    </ng-template>
 
     <!-- le formulaire pour representer des statut des taches -->
     <div class="container mt-5">
       <h2 class="mb-4">Statut des Taches</h2>
       <table class="table table-striped table-bordered">
-          <thead class="thead-dark taskStatus">
+          <thead class=" taskStatus" id="taskStatus">
               <tr>
                   <th>En cours</th>
                   <th>A faire</th>
@@ -111,13 +117,16 @@
       </div>
   
       <div> 
-        <h3>Assigner une Tâche</h3>
+        <h6>Assigner une Tâche a un membre</h6>
         <br>
         <form>
-          <select class="form-control" name="selectedMember" [(ngModel)]="selectedMemberId">
-            <option value="" disabled selected>Selectionez</option>
-            <option [value]="member.memberId" *ngFor="let member of members">{{member.username}}</option>
-          </select>
+          <div class="row">
+            <select class="col-12" name="selectedMember" [(ngModel)]="selectedMemberId">
+              <option value="" selected>Selectionnez</option>
+              <option [value]="member.memberId" *ngFor="let member of members">{{member.username}}</option>
+            </select>
+          </div>
+
           <br>
           <button 
             class="btn btn-danger signin" 

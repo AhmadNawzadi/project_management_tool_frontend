@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskComponent } from './task.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TaskComponent', () => {
   let component: TaskComponent;
@@ -8,7 +9,7 @@ describe('TaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskComponent]
+      imports: [TaskComponent, HttpClientTestingModule]
     })
     .compileComponents();
     
@@ -20,4 +21,5 @@ describe('TaskComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

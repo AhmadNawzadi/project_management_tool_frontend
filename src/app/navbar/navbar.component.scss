@@ -1,13 +1,14 @@
-.navbar-css {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
 
-.navbar-brand {
-    font-size: 40px;
+.container-fluid {
+    padding: 0;
+    margin: 0;
+}
+.navbar-css {
+    // display: flex;
+    // justify-content: space-between;
+    padding: 20px 30px;
+    background: rgb(33, 47, 61);
     color: white;
 }
-.my-navbar {
-    background-color: rgb(33, 47, 61);
-}
+
+
