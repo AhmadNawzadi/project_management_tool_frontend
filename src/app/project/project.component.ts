@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { CommonModule } from '@angular/common';
-import { TaskComponent } from "../task/task.component";
 import { TaskService } from '../services/task.service';
 import { MemberService } from '../services/member.service';
 import { NewProjectComponent } from "../new-project/new-project.component";
@@ -20,7 +19,6 @@ import { Task } from '../models/task';
   standalone: true,
   imports: [
     CommonModule,
-    TaskComponent,
     NewProjectComponent,
     NewTaskComponent,
     RouterOutlet,
