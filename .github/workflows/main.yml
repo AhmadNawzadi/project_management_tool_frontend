@@ -38,3 +38,7 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ahmad200/pmt-frontend:latest
+
+      - name: Run tests (optional)
+        run: |
+          npm test -- --watchAll=false
