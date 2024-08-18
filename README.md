@@ -1,27 +1,40 @@
-# ProjectManagementTool
+# ProjectManagementTool CI CD
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+## Déclencheurs (on)
+Le pipeline se déclenche automatiquement lorsque : Un commit est poussé sur la branche main du dépôt.
 
-## Development server
+## Jobs
+Le pipeline contient un seul job nommé build qui s'exécute sur une machine virtuelle ubuntu-latest.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Étapes du Job
+Checkout du Code
+Action utilisée : actions/checkout@v4
+Description : Cette étape récupère le code source de Notre dépôt GitHub dans l'environnement de build.
 
-## Code scaffolding
+## Configuration de Node.js
+Action utilisée : actions/setup-node@v4
+Description : Installe Node.js version 20 et met en cache les dépendances NPM pour accélérer les builds futurs.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation des Dépendances
+Commande exécutée : npm install
+Description : Installe les dépendances de notre application Angular spécifiées dans le fichier package.json. Cette étape est cruciale pour préparer l'environnement de build.
 
-## Build
+## Construction de l'Application
+Commande exécutée : npm run build --prod
+Description : Compile l'application Angular en mode production. Le résultat est un dossier dist contenant les fichiers statiques optimisés pour le déploiement.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Construction de l'Image Docker
+Commande exécutée : docker build -t ahmad200/pmt-frontend:latest .
+Description : Utilise le Dockerfile situé à la racine du projet pour construire une image Docker contenant l'application Angular. L'image est taguée latest et sera stockée sous le nom ahmad200/pmt-frontend.
 
-## Running unit tests
+## Connexion à Docker Hub
+Action utilisée : docker/login-action@v3
+Description : Se connecte à Docker Hub en utilisant les identifiants stockés dans les secrets GitHub (DOCKER_HUB_USERNAME et DOCKER_HUB_ACCESS_TOKEN). Cette étape est nécessaire pour pousser l'image Docker vers Docker Hub.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Poussée de l'Image Docker
+Commande exécutée : docker push ahmad200/pmt-frontend:latest
+Description : Pousse l'image Docker construite précédemment sur Docker Hub, la rendant disponible pour le déploiement sur des serveurs ou d'autres environnements.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Exécution des Tests (optionnel)
+Commande exécutée : npm test -- --watchAll=false
+Description : Exécute les tests unitaires de l'application Angular pour vérifier que tout fonctionne comme prévu.
